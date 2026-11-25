@@ -1,0 +1,42 @@
+{
+  "name": "voltghar",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -k \"tsx watch server/index.ts\" \"vite --host 0.0.0.0\"",
+    "build": "tsc --noEmit && vite build",
+    "start": "NODE_ENV=production tsx server/index.ts",
+    "test": "tsx --test tests/*.test.ts",
+    "admin:create": "tsx server/create-admin.ts",
+    "test:browser": "playwright test",
+    "test:fixtures": "tsx tests/fixtures.ts"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "latest",
+    "vite": "latest",
+    "typescript": "latest",
+    "tsx": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "express": "^5.1.0",
+    "zod": "^4.0.0",
+    "lucide-react": "latest",
+    "helmet": "latest",
+    "express-rate-limit": "latest",
+    "cookie-parser": "latest",
+    "dotenv": "latest",
+    "leaflet": "latest",
+    "react-leaflet": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "@types/express": "latest",
+    "@types/cookie-parser": "latest",
+    "@types/leaflet": "latest",
+    "concurrently": "latest",
+    "@playwright/test": "latest"
+  }
+}

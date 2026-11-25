@@ -1,0 +1,641 @@
+/* Shared VoltGhar primitives. */
+.tile,
+.card-section {
+  min-width: 0;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: var(--gap);
+  padding: clamp(16px, 2vw, 20px);
+}
+
+.tile--ink,
+.tile--orange,
+.tile--violet,
+.tile--cobalt {
+  color: var(--white);
+}
+
+.tile--ink, .tag--done { background: var(--ink); }
+.tile--orange, .tag--urgent { background: var(--orange-readable); }
+.tile--violet, .tag--design { background: var(--violet-readable); }
+.tile--cobalt { background: var(--cobalt); }
+.tile--lime, .tag--review { background: var(--lime); color: var(--ink); }
+
+.tile > strong {
+  display: block;
+  margin: auto 0 0;
+  padding-top: 10px;
+  font: 700 clamp(44px, 4vw, 56px)/1 var(--font-display, "Plus Jakarta Sans", sans-serif);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -.04em;
+  overflow-wrap: anywhere;
+}
+
+.tile > p {
+  max-width: none;
+  color: var(--quiet);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.tile--ink > *, .tile--orange > *, .tile--violet > *, .tile--cobalt > *,
+.tile--lime > * { color: inherit; }
+
+.tile--ink p { color: rgba(255, 255, 255, 0.78) !important; }
+.tile--orange p { color: rgba(255, 255, 255, 0.95) !important; }
+.tile--violet p { color: rgba(255, 255, 255, 0.95) !important; }
+.tile--cobalt p { color: rgba(255, 255, 255, 0.9) !important; }
+.tile--lime p { color: rgba(15, 23, 42, 0.85) !important; }
+
+.card-section > .card-row + .card-row { border-top: 1px solid var(--line); }
+.group-head { display: flex; justify-content: space-between; align-items: center; gap: var(--gap); }
+.group-head > :first-child::before { content: "● "; }
+
+.eyebrow, .workspace-label, .network-status, .nav-count, .stat-label,
+.group-head, .tag, .status, .meta-chip, .cover-badge, .cover-power,
+.booking-details small, .privacy-note,
+.atlas-results > strong, thead th, .results-label,
+.agenda-item time, .atlas-credit {
+  font-family: var(--font-display, "Plus Jakarta Sans", sans-serif);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--quiet);
+}
+
+.booking-reference, .access-code {
+  font-family: var(--font-mono, "JetBrains Mono", monospace);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .08em;
+}
+
+.tag, .status {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: var(--soft);
+  color: var(--ink);
+}
+.tag--urgent { background: var(--orange-readable); color: var(--white); }
+.tag--design { background: var(--violet-readable); color: var(--white); }
+.tag--review { background: var(--lime); color: var(--ink); }
+.tag--done { background: var(--ink); color: var(--white); }
+
+.meta-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border: 1px solid var(--control-line);
+  border-radius: var(--radius-pill);
+}
+
+.checkbox {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  gap: 8px;
+  cursor: pointer;
+}
+.checkbox input[type="checkbox"] {
+  appearance: none;
+  display: inline-grid;
+  place-content: center;
+  flex: 0 0 20px;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  margin: 0;
+  border: 1px solid var(--control-line);
+  border-radius: 6px;
+  background: var(--surface);
+}
+.checkbox input[type="checkbox"]:checked { background: var(--ink); }
+.checkbox input[type="checkbox"]:checked::after {
+  content: "";
+  width: 6px;
+  height: 10px;
+  border: solid var(--white);
+  border-width: 0 2px 2px 0;
+  transform: translateY(-1px) rotate(45deg);
+}
+.checkbox:has(input:checked) > span { color: var(--quiet); text-decoration: line-through; }
+
+.progress {
+  display: block;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--soft);
+  overflow: hidden;
+}
+.progress::-webkit-progress-bar { background: var(--soft); }
+.progress::-webkit-progress-value { background: var(--ink); }
+.progress::-moz-progress-bar { background: var(--ink); }
+.progress > span { display: block; height: 100%; background: var(--ink); }
+
+.avatar-stack { display: inline-flex; align-items: center; isolation: isolate; }
+.avatar-stack > * {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--surface);
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--white);
+}
+.avatar-stack > * + * { margin-inline-start: -8px; }
+
+.agenda-item {
+  --agenda-accent: var(--ink);
+  display: grid;
+  grid-template-columns: minmax(52px, auto) 1fr;
+  gap: var(--gap);
+  padding-block: 12px;
+}
+.agenda-item time { display: block; color: var(--ink); }
+.agenda-item time + time { color: var(--quiet); }
+.agenda-item__content { border-inline-start: 3px solid var(--agenda-accent); padding-inline-start: 12px; }
+.agenda-item__title { font: 600 15px/1.4 Inter, sans-serif; }
+
+main { max-width: 1200px; }
+:is(.stats-grid, .charger-grid, .city-strip > div) {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gap);
+}
+.stats-grid .tile:nth-child(3):last-child { grid-column: 1 / -1; }
+.stat-label { align-items: flex-start; max-width: none; }
+.stat-label svg { display: block; flex: 0 0 17px; width: 17px; }
+.charger-card, .vehicle-card, .booking-card, .table-wrap, .info-panel,
+.activity-list, .insight-panel, .trip-home, .atlas {
+  border-radius: var(--radius-card);
+  border-color: var(--line);
+  background-color: var(--surface);
+}
+.table-wrap :is(td, th), .activity-list > div { border-color: var(--line); }
+.brand-icon, .discovery .brand-icon, .button, .toast, .atlas-head {
+  background: var(--ink);
+  color: var(--white);
+}
+.discovery .trip-search > button,
+.discovery .trip-search-form > button {
+  color: var(--white);
+  background: var(--ink);
+}
+.discovery .trip-search > button:hover,
+.discovery .trip-search-form > button:hover {
+  background: #18181B;
+}
+.atlas-head h2 { color: var(--white); }
+.atlas-head a, .upcoming .pill, .cover-power {
+  color: var(--ink);
+  background: var(--lime);
+}
+.photo-caption { background: var(--ink); color: var(--white); }
+.photo-caption button { background: var(--surface); color: var(--ink); }
+.atlas-tools button, .city-strip button, .button.secondary {
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--control-line);
+}
+button, .button, .atlas-head a, .trip-modes button, .photo-caption button,
+.leaflet-touch .leaflet-bar a { min-height: 40px; min-width: 40px; }
+.button, .trip-search > button, .atlas-tools button, .atlas-head a {
+  border-radius: var(--radius-inner);
+  font-weight: 600;
+}
+:is(input, select, textarea):not([type="checkbox"]),
+.search-box, .trip-search label, .atlas-tools label {
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--control-line);
+  border-radius: var(--radius-inner);
+  min-height: 40px;
+}
+.search-box input, .trip-search label input, .atlas-tools label input { border: 0; }
+input::placeholder, textarea::placeholder { color: var(--quiet); opacity: 1; }
+:where(button, a, input, select, textarea, [tabindex]):focus-visible,
+.modal :is(input, select, textarea):focus-visible,
+.trip-search label:focus-within, .search-box:focus-within {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+.atlas-head a:focus-visible { outline-color: var(--white); }
+
+@media (min-width: 1000px) {
+  :is(.stats-grid, .charger-grid, .city-strip > div) { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .stats-grid .tile:nth-child(3):last-child { grid-column: span 2; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :is(button, .button, .charger-card, .city-strip button) { transition: transform 180ms ease-out; }
+  :is(button:not(:disabled), .button, .charger-card, .city-strip button):hover { transform: translateY(-2px); }
+  :is(.trip-home, .trip-directory:not(:empty), .stats-grid > *, .charger-grid > *) {
+    animation: bento-enter 260ms ease-out backwards;
+  }
+  :is(.stats-grid, .charger-grid) > :nth-child(4n + 2) { animation-delay: 40ms; }
+  :is(.stats-grid, .charger-grid) > :nth-child(4n + 3) { animation-delay: 80ms; }
+  :is(.stats-grid, .charger-grid) > :nth-child(4n + 4) { animation-delay: 120ms; }
+  .checkbox input:checked::after { animation: bento-check 120ms ease-out; }
+
+  @keyframes bento-enter {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes bento-check {
+    from { transform: translateY(-1px) rotate(45deg) scale(0); }
+    to { transform: translateY(-1px) rotate(45deg) scale(1); }
+  }
+}
+
+/* Station directory */
+.atlas {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+}
+
+.atlas-results > strong {
+  display: block;
+  padding: 0 10px 10px;
+}
+
+.atlas-results > button {
+  background: transparent;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+}
+
+.atlas-results > button.picked {
+  color: var(--white);
+  background: var(--ink);
+  border-radius: var(--radius-inner);
+}
+
+.atlas-results > button.picked small {
+  color: inherit;
+}
+
+.atlas-results > button.picked:focus-visible {
+  outline-offset: 2px;
+}
+
+.atlas-tools button {
+  border-radius: var(--radius-pill);
+  background: transparent;
+}
+
+/* Charger cards and availability */
+.charger-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+.charger-cover {
+  background: var(--soft);
+  border-bottom: 1px solid var(--line);
+}
+
+.charger-cover .cover-badge,
+.charger-cover .cover-power {
+  background: var(--surface);
+  color: var(--ink);
+  backdrop-filter: none;
+  line-height: 1.5;
+}
+
+.charger-specs,
+.charger-card .card-footer > div {
+  font: 500 11px/1.5 "JetBrains Mono", monospace;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.charger-specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+}
+
+.charger-specs > span { margin: 0; }
+.charger-card .card-footer > div > * { font: inherit; }
+.charger-card .card-footer button { font-size: 11px; }
+.card-title-row { flex-wrap: wrap; gap: 5px; }
+
+.tag--available,
+.button.tag--available {
+  background: var(--lime);
+  color: var(--ink);
+}
+
+.tag--busy,
+.status.charging {
+  background: var(--orange-readable);
+  color: var(--white);
+}
+
+.tag--paused,
+.button.tag--paused {
+  background: var(--soft);
+  color: var(--ink);
+}
+
+.charger-status::before { content: attr(title); }
+.charger-status { font-size: 10px; letter-spacing: .04em; }
+
+@media (max-width: 540px) {
+  .charger-cover .cover-badge { max-width: calc(100% - 22px); }
+  .charger-cover .cover-power { top: auto; bottom: 8px; right: 8px; }
+}
+
+/* Booking agenda and activity */
+.booking-list.group-head,
+.activity-list.group-head,
+.reserved-slots.group-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: stretch;
+  counter-reset: agenda-rows;
+}
+
+:is(.booking-list, .activity-list, .reserved-slots).group-head::before,
+:is(.booking-list, .activity-list, .reserved-slots).group-head::after {
+  padding-block: 8px;
+  font: 500 10px/1.5 "JetBrains Mono", monospace;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.booking-list.group-head::before { content: "● Bookings"; grid-area: 1 / 1; }
+.activity-list.group-head::before { content: "● Activity"; grid-area: 1 / 1; }
+.reserved-slots.group-head > strong { grid-area: 1 / 1; }
+.reserved-slots.group-head > strong::before { content: "● "; }
+
+.booking-list.group-head > .booking-card,
+.activity-list.group-head > div,
+.reserved-slots.group-head > small { counter-increment: agenda-rows; }
+
+:is(.booking-list, .activity-list, .reserved-slots).group-head::after {
+  content: counter(agenda-rows);
+  grid-area: 1 / 2;
+}
+
+:is(.booking-list, .activity-list, .reserved-slots).group-head > * { grid-column: 1 / -1; }
+:is(.booking-list, .activity-list).group-head > :first-child::before { content: none; }
+
+.booking-card,
+.activity-list,
+.reserved-slots,
+.upcoming {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  color: var(--ink);
+}
+
+.booking-top.agenda-item__content { border-inline-start-color: var(--cobalt); }
+.booking-top h3, .upcoming h3 { font: 600 15px/1.4 Inter, sans-serif; }
+.booking-details.agenda-item {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.booking-details strong, .upcoming :is(small, p),
+.reserved-slots small, .activity-list :is(small, p) {
+  font: 500 11px/1.5 "JetBrains Mono", monospace;
+}
+
+.booking-details > div:first-child { border-inline-start: 3px solid var(--ink); padding-inline-start: 10px; }
+
+.upcoming.agenda-item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  border-inline-start: 3px solid var(--cobalt);
+}
+
+.access-code.tile {
+  display: inline-flex;
+  align-items: flex-start;
+  padding: 14px;
+  background: var(--ink);
+  color: var(--white);
+  border-radius: var(--radius-inner);
+  font: 500 11px/1.4 "JetBrains Mono", monospace;
+}
+
+.access-code.tile > strong {
+  margin: 0;
+  padding: 0;
+  color: inherit;
+  font: 500 clamp(22px, 5vw, 34px)/1.2 "JetBrains Mono", monospace;
+  letter-spacing: .08em;
+}
+
+.reserved-slots small,
+.activity-list > div {
+  padding-block: 10px;
+  border-block-start: 1px solid var(--line);
+}
+
+@media (min-width: 700px) {
+  .booking-details.agenda-item { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* Dashboard tiles */
+.stats-grid > .stat:nth-child(1) {
+  background: var(--ink);
+  color: var(--white);
+}
+
+.stats-grid > .stat:nth-child(2) {
+  background: var(--lime);
+  color: var(--ink);
+}
+
+.stats-grid > .stat :is(.stat-label, p) { color: inherit; }
+.stats-grid > .stat .stat-label { min-height: 3em; }
+.stats-grid > .stat > strong { overflow-wrap: anywhere; }
+.stats-grid:has(> .stat:nth-child(2):last-child) > .stat { grid-column: auto; }
+
+.summary-strip,
+.insight-panel.tile {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+}
+
+.insight-panel .insight-symbol {
+  margin: 0;
+  background: var(--soft);
+  color: var(--ink);
+}
+
+.insight-values {
+  flex-wrap: wrap;
+  gap: calc(var(--gap) * 2);
+}
+
+.insight-values > div > strong {
+  font: 600 clamp(44px, 4vw, 56px)/1.15 Inter, sans-serif;
+}
+
+.insight-values > div > span {
+  font: 500 11px/1.5 "JetBrains Mono", monospace;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+@media (min-width: 1000px) {
+  .stats-grid:has(> .stat:nth-child(2):last-child) > .stat { grid-column: span 2; }
+}
+
+/* Filters and view selection */
+.view-toggle,
+.filters .filter-price,
+.filters .filter-button,
+.pill {
+  background: var(--soft);
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+
+.view-toggle { padding: 4px; gap: 4px; border-radius: var(--radius-inner); }
+.view-toggle > button { padding: 6px 10px; border-radius: 8px; color: var(--ink); }
+.view-toggle > button.selected,
+.filters .filter-button.chosen {
+  background: var(--ink);
+  color: var(--white);
+}
+
+.filters .filter-price,
+.filters .filter-button { min-height: 40px; border-radius: var(--radius-inner); }
+.filters .filter-price select { border: 0; background: transparent; }
+.pill { border-radius: var(--radius-pill); }
+
+/* Data tables */
+.table-wrap { border: 1px solid var(--line); overflow-x: auto; }
+.table-wrap table { border-collapse: collapse; }
+.table-wrap th {
+  text-align: start;
+  color: var(--ink);
+  background: var(--soft);
+  border-bottom: 1px solid var(--line);
+}
+
+.table-wrap tbody tr,
+.table-wrap tbody td { background: var(--surface); }
+.table-wrap tbody tr + tr > td { border-top: 1px solid var(--line); }
+.table-wrap tbody tr:first-child > td { border-top: 0; }
+
+/* Forms */
+.form-grid { gap: var(--gap); }
+.form-grid > * { min-width: 0; }
+
+.modal :is(input, select, textarea):not([type="checkbox"]) {
+  width: 100%;
+  min-width: 0;
+  min-height: 40px;
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--control-line);
+  border-radius: var(--radius-inner);
+}
+
+.modal :is(input, select, textarea):not([type="checkbox"]):focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.modal form .button,
+.modal .form-switch button { min-height: 40px; font-weight: 600; }
+.modal .form-switch button { padding-inline: 8px; text-decoration: underline; text-underline-offset: 3px; }
+.modal .checkbox input[type="checkbox"]:checked { background: var(--ink); }
+
+/* Dialogs and feedback */
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+}
+
+.modal-backdrop {
+  background: rgba(19,19,17,.5);
+  backdrop-filter: none;
+}
+
+.modal-close {
+  background: var(--soft);
+  border-radius: var(--radius-pill);
+  color: var(--ink);
+}
+
+.toast {
+  max-width: calc(100vw - 24px);
+  background: var(--ink);
+  color: var(--white);
+  border-radius: var(--radius-pill);
+  font: 500 11px/1.5 "JetBrains Mono", monospace;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+/* Empty states, vehicles, and account surfaces */
+.empty,
+.vehicle-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  color: var(--ink);
+}
+
+.empty-icon,
+.vehicle-card > svg,
+.modal-icon {
+  background: var(--soft);
+  color: var(--ink);
+}
+
+.vehicle-card > svg {
+  width: 58px;
+  height: 58px;
+  padding: 12px;
+  border-radius: var(--radius-inner);
+}
+
+.vehicle-card { padding: clamp(12px, 2.5vw, 24px); overflow-wrap: anywhere; }
+.profile { color: var(--ink); }
+.profile small { color: var(--quiet); }
+
+.page-heading {
+  gap: var(--gap);
+  background: var(--bg);
+}
+
+:is(.page-heading, .empty, .vehicle-card) :is(h1, h2, h3) {
+  font-family: Inter, sans-serif;
+  letter-spacing: -.035em;
+}
+
+.page-heading .eyebrow { color: var(--quiet); }
+
+@media (max-width: 540px) {
+  .page-heading { flex-wrap: wrap; }
+}

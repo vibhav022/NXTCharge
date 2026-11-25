@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Production build outputs
+dist/
+*/dist/
+
+# SQLite databases & runtime data
+data/
+*/data/
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Environment & secrets
+.env
+.env.*
+!.env.example
+*.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# Test artifacts
+test-results/
+playwright-report/
+
+# OS files
+.DS_Store
+Thumbs.db

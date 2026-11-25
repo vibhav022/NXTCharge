@@ -1,0 +1,12 @@
+{
+  "name": "nxtcharge-project",
+  "version": "1.0.0",
+  "private": true,
+  "description": "NXTCharge - Community-driven EV charging network",
+  "scripts": {
+    "dev": "npm --prefix voltghar run dev",
+    "build": "npm --prefix voltghar run build",
+    "test": "npm --prefix voltghar test",
+    "start": "npm --prefix voltghar start"
+  }
+}
